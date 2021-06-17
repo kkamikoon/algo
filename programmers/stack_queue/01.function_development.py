@@ -1,19 +1,30 @@
 import math
-import collections
 
 def solution(progresses, speeds):
-    res = []
+    days = []
 
+    # N번 계산
     for index in range(len(progresses)):
-        res.append(str(math.ceil((100-progresses[index])/speeds[index])))
+        days.append(math.ceil((100-progresses[index])/speeds[index]))   
 
-    res.sort()
+    # N번 계산
+    tmp_cnt = 1
+    tmp_day = days[0]
 
-    print(res)
+    answer = []
 
-    cnt = collections.Counter(res)
-
-    print(cnt)
+    for index in range(len(days)):
+        try:
+            if tmp_day >= days[index+1]:
+                tmp_cnt += 1
+            else:
+                answer.append(tmp_cnt)
+                tmp_day = days[index+1]
+                tmp_cnt = 1
+        except:
+            answer.append(tmp_cnt)
+    
+    return answer
 
 solution([93, 30, 55], [1, 30, 5])
 solution([95, 90, 99, 99, 80, 99], [1, 1, 1, 1, 1, 1])
